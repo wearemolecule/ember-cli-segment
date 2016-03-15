@@ -18,7 +18,7 @@ export default Ember.Mixin.create({
   },
 
   trackPageView: function() {
-    if(this.hasAnalytics()) {
+    if (this.hasAnalytics()) {
       window.analytics.page.apply(this, arguments);
 
       this.log('trackPageView', arguments);

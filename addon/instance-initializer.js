@@ -1,17 +1,13 @@
-import getOwner from 'ember-getowner-polyfill';
+export default function instanceInitialize(application) {
+  let router = application.lookup('router:main');
+  let segment = application.lookup('service:segment');
+  let ApplicationRoute = application.lookup('route:application');
 
-export default function instanceInitialize(applicationInstance) {
-  var owner = getOwner(applicationInstance);
-
-  var router = owner.lookup('router:main');
-  var segment = owner.lookup('service:segment');
+  if (ApplicationRoute && typeof ApplicationRoute.identifyUser === 'function') {
+    ApplicationRoute.identifyUser();
+  }
 
   router.on('didTransition', function() {
     segment.trackPageView();
-
-    var applicationRoute = owner.lookup('route:application');
-    if(applicationRoute && typeof applicationRoute.identifyUser === 'function') {
-      applicationRoute.identifyUser();
-    }
   });
 }

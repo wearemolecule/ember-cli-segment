@@ -14,6 +14,7 @@ module('Acceptance: Router', {
   beforeEach: function() {
     application = startApp();
   },
+
   afterEach: function() {
     Ember.run(application, 'destroy');
     sinon.restore(window.analytics);
@@ -23,6 +24,7 @@ module('Acceptance: Router', {
 test('should trigger page and identify when visiting /', function(assert) {
   sinon.spy(window.analytics, 'page');
   sinon.spy(window.analytics, 'identify');
+
   visit('/');
 
   andThen(function() {
@@ -69,6 +71,7 @@ test('should trigger page and identify when clicking index', function(assert) {
 
 test('should not trigger analytics.identify when visiting /', function(assert) {
   application.__container__.lookup('route:application').set('identifyUser', null);
+
   sinon.spy(window.analytics, 'identify');
   visit('/');
 
