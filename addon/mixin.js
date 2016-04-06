@@ -1,12 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  init: function() {
-    this._super();
-    if(!this.hasAnalytics()) {
-      Ember.Logger.warn('Segment.io is not loaded yet (window.analytics)');
-    }
-  },
   hasAnalytics: function() {
     return !!(window.analytics && typeof window.analytics === "object");
   },
